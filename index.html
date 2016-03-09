@@ -1,0 +1,62 @@
+<!--
+<html ng-app='nameApp'>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <script>
+      // function NameCtrl($scope){
+      //   $scope.firstName = 'John';
+      //   $scope.lastName = 'Smith';
+      // }
+
+      var nameApp = angular.module('nameApp', []);
+      nameApp.controller('NameCtrl', function($scope){
+        $scope.firstName = 'John';
+
+        $scope.$watch('lastName', function(newValue, oldValue){
+          console.log('new value is '+ newValue);
+
+        });
+
+        setTimeout(function(){
+          $scope.lastName = 'Smith';
+          $scope.$apply();
+        }, 1000);
+
+      });
+    </script>
+
+  </head>
+  <body ng-controller="NameCtrl">
+    First Name:<input ng-model="firstName" type="text"/>
+    <br>
+    Last Name:<input ng-model="lastName" type="text"/>
+    <br>
+
+    Hello {{firstName}} {{lastName}}!
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html ng-app='nameApp'>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+
+   <script>
+     var nameApp = angular.module('nameApp', []);
+     nameApp.controller('NameCtrl', function($scope){
+       $scope.names = ['Larry', 'Curly', 'Moe'];
+     });
+  </script>
+  </head>
+  <body ng-controller='NameCtrl'>
+    <ol>
+      <li ng-repeat='name in names'>{{name}}</li>
+    </ol>
+  </body>
+</html>
+
+---> continue $15
