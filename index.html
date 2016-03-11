@@ -38,25 +38,154 @@
   </body>
 </html> -->
 
-<!DOCTYPE html>
-<html ng-app='nameApp'>
+<!-- <html ng-app="nameApp">
   <head>
     <meta charset="utf-8">
     <title>Angular.js Example</title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
-
-   <script>
-     var nameApp = angular.module('nameApp', []);
-     nameApp.controller('NameCtrl', function($scope){
-       $scope.names = ['Larry', 'Curly', 'Moe'];
-     });
-  </script>
+    <script>
+      var nameApp = angular.module('nameApp', []);
+      nameApp.controller('NameCtrl', function ($scope){
+        $scope.names = ['Larry', 'Curly', 'Moe'];
+        $scope.addName = function() {
+          $scope.names.push($scope.enteredName);
+          $scope.enteredName = '';
+        };
+        $scope.removeName = function(name) {
+          var i = $scope.names.indexOf(name);
+          $scope.names.splice(i, 1);
+        };
+      });
+    </script>
   </head>
-  <body ng-controller='NameCtrl'>
-    <ol>
-      <li ng-repeat='name in names'>{{name}}</li>
-    </ol>
+  <body ng-controller="NameCtrl">
+    <ul>
+      <li ng-repeat="name in names">{{name}}
+        <a href="" ng-click="removeName(name)">remove</a>
+      </li>
+    </ul>
+    <form ng-submit="addName()">
+      <input type="text" ng-model="enteredName">
+      <input type="submit" value="add">
+    </form>
+  </body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <script>
+      var countryApp = angular.module('countryApp', []);
+      countryApp.controller('CountryCtrl',  function($scope, $http){
+        $http.get('countries.json').success(function(data){
+          $scope.countries = data;
+        });
+        $scope.sortField = 'population';
+        $scope.reverse = true;
+      });
+
+    </script>
+
+  </head>
+  <body ng-controller="CountryCtrl">
+    Search:<input ng-model='query' type='text'/>
+    <table>
+      <tr>
+        <th><a href="" ng-click='sortField = "name"; reverse = !reverse'>Country</a></th>
+        <th><a href="" ng-click='sortField = "population"; reverse =!reverse'>Population</a></th>
+      </tr>
+      <tr ng-repeat="country in countries | filter:query | orderBy:'-population': sortField :reverse ">
+        <td>{{country.name}}</td>
+        <td>{{country.population}}</td>
+      </tr>
+    </table>
+  </body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <script>
+      var countryApp = angular.module('countryApp', []);
+      countryApp.controller('CountryCtrl', function ($scope, $http){
+        $http.get('countries.json').success(function(data) {
+          $scope.countries = data;
+        });
+      });
+    </script>
+  </head>
+  <body ng-controller="CountryCtrl">
+    <table>
+      <tr>
+        <th>Country</th>
+        <th>Population</th>
+        <th>Flag</th>
+        <th>Capital</th>
+        <th><a href='http://en.wikipedia.org/wiki/List_of_countries_by_GDP_(PPP)'>GDP(PPP)</a></th>
+      </tr>
+
+      <tr ng-repeat="country in countries">
+        <td>{{country.name}}</td>
+        <td>{{country.population | number}}</td>
+        <td><img ng-src="{{country.flagURL}}" width="100"></img></td>
+        <td>{{country.capital}}</td>
+        <td>{{country.gdp | currency}}</td>
+      </tr>
+    </table>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html ng-app="countryApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular-route.min.js"></script>
+    <script>
+      var countryApp = angular.module('countryApp', ['ngRoute']);
+
+      countryApp.config(function($routeProvider) {
+        $routeProvider.
+          when('/', {
+            templateUrl: 'country-list.html',
+            controller: 'CountryListCtrl'
+          }).
+          when('/:countryName', {
+            templateUrl: 'country-detail.html',
+            controller: 'CountryDetailCtrl'
+          }).
+          otherwise({
+            redirectTo: '/'
+          });
+      });
+
+      countryApp.controller('CountryListCtrl', function ($scope, $http){
+        $http.get('countries.json').success(function(data) {
+          $scope.countries = data;
+        });
+      });
+
+      countryApp.controller('CountryDetailCtrl', function ($scope, $routeParams, $http){
+        $scope.name = $routeParams.countryName;
+
+        $http.get('countries.json').success(function(data) {
+          var country = data.filter(function(entry){
+            return entry.name === $scope.name;
+          })[0];
+
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div ng-view></div>
   </body>
 </html>
-
----> continue $15
+-->  #39 ?
